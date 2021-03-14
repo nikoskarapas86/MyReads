@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router';
+import { Link } from 'react-router-dom';
+import './App.css';
+import BookList from './BookList';
+import * as BooksAPI from './BooksAPI'
+import Inquery from './Inquery';
+class App extends Component {
+  state = {
+    books: []
+  }
+  getAllBooks() {
+    BooksAPI.getAll().then(books => this.setState({ books }));
+  }
+
+  componentDidMount() {
+    this.getAllBooks()
+  }
+
+
+  updatebook = (book, self) => {
+    BooksAPI.update(book, self).then(books => {
+      this.getAllBooks()
+    });
+  }
+
+  render() {
+
+    return (
+      <div className="App">
+        <Switch>
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <div className="list-books-content">
+                <BookList books={this.state.books} updatebook={this.updatebook} />
+                <div className="open-search">
+                  <Link to="/inquery">Search</Link>
+                </div>
+              </div>
+            </div>)} />
+            <Route
+          path="/inquery"
+          render={
+            () => 
+              <Inquery updatebook={this.updatebook}  />
+            
+          }
+        />
+
+        </Switch>
+        
+        
+
+      </div>
+    );
+  }
+
 }
 
 export default App;
