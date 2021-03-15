@@ -8,23 +8,28 @@ import * as BooksAPI from './BooksAPI'
 class Inquery extends Component {
 
     state = {
-        findedBooks: [],attemp:false
-        
+        findedBooks: [], attemp: false
+
     }
 
     findBooks = (event) => {
-        BooksAPI.search(event.target.value.trim(), 35).then(findedBooks => {
-            if(findedBooks && findedBooks.length  ){
-                this.setState({ findedBooks })
-            }else{
-                this.setState({findedBooks:[],attemp:true})
-            }
-        })
+        if(event.target.value.trim().length > 0){
+            BooksAPI.search(event.target.value.trim(), 35).then(findedBooks => {
+                if (findedBooks && findedBooks.length) {
+                    console.log(this.props.books)
+                    console.log(findedBooks)
+                    this.setState({ findedBooks })
+                } else {
+                    this.setState({ findedBooks: [], attemp: true })
+                }
+            })
+        }else this.setState({ findedBooks: [], attemp: false });
+       
     }
 
-    update =(book,shelf)=>{
-        this.props.updatebook(book,shelf)
-        }
+    update = (book, shelf) => {
+        this.props.updatebook(book, shelf)
+    }
 
     render() {
         return (
@@ -42,18 +47,26 @@ class Inquery extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                {
-                    this.state.findedBooks  && <ol className="books-grid">
-                    {this.state.findedBooks.map((book, index) =>
-                        <Book key={index} book={book} updatebook={this.update}/>
-                    )}
-                </ol>
-                }  
-                {
-                     (this.state.findedBooks.length == 0 && this.state.attemp)  && <div className="empty-list">
-                      No book found
+                    {
+
+                        this.state.findedBooks && this.state.findedBooks.length > 0 &&
+                        <div>
+                            <h4>We found {this.state.findedBooks.length} books </h4>
+                            <ol className="books-grid">
+                                {
+
+                                    this.state.findedBooks.map((book, index) =>
+                                        <Book key={index} book={book} updatebook={this.update} />
+                                    )}
+                            </ol>
+                        </div>
+
+                    }
+                    {
+                        (this.state.findedBooks.length == 0 && this.state.attemp) && <div className="empty-list">
+                            No book found
                      </div>
-                } 
+                    }
 
                 </div>
 

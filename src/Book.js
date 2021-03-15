@@ -1,4 +1,5 @@
 import { Component } from "react";
+import emptyImg from './icons/no-cover-image.png';
 const vals = [
     { value: 'move', name: 'Move to...', disabled: true },
     { value: "currentlyReading", name: 'Currently Reading', disabled: false },
@@ -21,7 +22,7 @@ class Book extends Component {
                         <div className="book-cover"
                             style={{
                                 width: 128, height: 193,
-                                backgroundImage: `url(${this.props.book.imageLinks.thumbnail.toString()})`
+                                backgroundImage: `url(${(this.props.book.imageLinks && this.props.book.imageLinks.thumbnail)?this.props.book.imageLinks.thumbnail.toString():emptyImg})`
                             }} ></div>
                         <div className="book-shelf-changer">
 

@@ -41,15 +41,15 @@ class App extends Component {
               <div className="list-books-content">
                 <BookList books={this.state.books} updatebook={this.updatebook} />
                 <div className="open-search">
-                  <Link to="/inquery">Search</Link>
+                  <Link to="/search">Search</Link>
                 </div>
               </div>
             </div>)} />
             <Route
-          path="/inquery"
+          path="/search"
           render={
             () => 
-              <Inquery updatebook={this.updatebook}  />
+              <Inquery  books={this.state.books} updatebook={this.updatebook}  />
             
           }
         />
