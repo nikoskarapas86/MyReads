@@ -10,7 +10,6 @@ const vals = [
 class Book extends Component {
 
     handleOnChange = (event) => {
-
         this.props.updatebook(this.props.book, event.target.value)
     }
 
@@ -26,7 +25,7 @@ class Book extends Component {
                             }} ></div>
                         <div className="book-shelf-changer">
 
-                            <select value={this.props.book.shelf} name="options" onChange={this.handleOnChange} >
+                            <select value={this.props.book.shelf?this.props.book.shelf:'none'} name="options" onChange={this.handleOnChange} >
                                 {vals.map((e, index) =>
                                     <option key={index} value={e.value} disabled={e.disabled}>{e.name}</option>
                                 )}
