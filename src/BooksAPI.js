@@ -9,7 +9,7 @@ const headers = {
     'Authorization': token
 }
 
-export const getAll = () =>
+export const  getAll =  () =>
     fetch(`${api}/books`, { headers })
         .then(res => res.json())
         .then(data => data.books)

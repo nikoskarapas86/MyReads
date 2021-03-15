@@ -12,19 +12,22 @@ class Inquery extends Component {
 
     }
 
+    addProperty = (book, books) => {
+        return book.shelf = books.find(b => b.id === book.id) ? books.find(b => b.id === book.id).shelf : 'none'
+    }
+
     findBooks = (event) => {
-        if(event.target.value.trim().length > 0){
-            BooksAPI.search(event.target.value.trim(), 35).then(findedBooks => {
+        if (event.target.value.trim().length > 0) {
+            BooksAPI.search(event.target.value.trim(), 30).then(findedBooks => {
                 if (findedBooks && findedBooks.length) {
-                    console.log(this.props.books)
-                    console.log(findedBooks)
+
+                    findedBooks.map(book => this.addProperty(book, this.props.books))
                     this.setState({ findedBooks })
                 } else {
                     this.setState({ findedBooks: [], attemp: true })
                 }
             })
-        }else this.setState({ findedBooks: [], attemp: false });
-       
+        } else this.setState({ findedBooks: [], attemp: false });
     }
 
     update = (book, shelf) => {
@@ -55,15 +58,15 @@ class Inquery extends Component {
                             <ol className="books-grid">
                                 {
 
-                                    this.state.findedBooks.map((book, index) =>
-                                        <Book key={index} book={book} updatebook={this.update} />
+                                    this.state.findedBooks.map((book) =>
+                                        <Book key={book.id} book={book} updatebook={this.update} />
                                     )}
                             </ol>
                         </div>
 
                     }
                     {
-                        (this.state.findedBooks.length == 0 && this.state.attemp) && <div className="empty-list">
+                        (this.state.findedBooks.length === 0 && this.state.attemp) && <div className="empty-list">
                             No book found
                      </div>
                     }

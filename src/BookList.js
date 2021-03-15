@@ -1,7 +1,7 @@
 import { Component } from "react";
 import Book from "./Book";
 
-const typeOfBooks = [{ type: "currentlyReading", title: "Currently Reading", list: [] }, { type: "wantToRead", title: "Want to Read", list: [] }, { type: "read", title: "Read", list: [] }]
+const typeOfBooks = [{ type: "currentlyReading", title: "Currently Reading" }, { type: "wantToRead", title: "Want to Read" }, { type: "read", title: "Read" }]
 class BookList extends Component {
 
 update =(book,shelf)=>{
@@ -21,9 +21,9 @@ this.props.updatebook(book,shelf)
                             <div className="bookshelf-books">
                                 <ol className="books-grid">
                                     {this.props.books.filter(book => book.shelf === type.type).map(
-                                       (book,index)  =>
+                                       (book)  =>
 
-                                            <Book key={index} book={book} updatebook={this.update} />
+                                            <Book key={book.id} book={book} updatebook={this.update} />
 
 
                                     )

@@ -27,8 +27,8 @@ class Book extends Component {
                         <div className="book-shelf-changer">
 
                             <select value={this.props.book.shelf?this.props.book.shelf:'none'} name="options" onChange={this.handleOnChange} >
-                                {vals.map((e, index) =>
-                                    <option key={index} value={e.value} disabled={e.disabled}>{e.name}</option>
+                                {vals.map((e) =>
+                                    <option key={e.name} value={e.value} disabled={e.disabled}>{e.name}</option>
                                 )}
                             </select>
 
