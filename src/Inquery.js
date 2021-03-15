@@ -13,7 +13,7 @@ class Inquery extends Component {
     }
 
     findBooks = (event) => {
-        BooksAPI.search(event.target.value.trim(), 30).then(findedBooks => {
+        BooksAPI.search(event.target.value.trim(), 35).then(findedBooks => {
             if(findedBooks && findedBooks.length  ){
                 this.setState({ findedBooks })
             }else{
